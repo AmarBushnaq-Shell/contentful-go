@@ -12,7 +12,7 @@ import (
 // EntriesService service
 type EntriesService service
 
-//Entry model
+// Entry model
 type Entry struct {
 	locale string
 	Sys    *Sys `json:"sys"`
@@ -69,14 +69,15 @@ func (service *EntriesService) List(spaceID string) *Collection {
 	col := NewCollection(&CollectionOptions{})
 	col.c = service.c
 	col.req = req
-	
+
 	return col
 }
 
 // Get returns a single entry
-func (service *EntriesService) Get(spaceID, entryID string) (*Entry, error) {
-	path := fmt.Sprintf("/spaces/%s/entries/%s", spaceID, entryID)
+func (service *EntriesService) Get(spaceID, entryID string, locale string) (*Entry, error) {
+	path := fmt.Sprintf("spaces/%s/environments/%s/entries/%s", spaceID, service.c.Environment, entryID)
 	query := url.Values{}
+	query.Add("locale", locale)
 	method := "GET"
 
 	req, err := service.c.newRequest(method, path, query, nil)
