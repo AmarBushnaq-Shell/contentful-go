@@ -178,6 +178,11 @@ func (c *Client) do(req *http.Request, v interface{}) error {
 	if res.StatusCode >= 200 && res.StatusCode < 400 {
 		if v != nil {
 			defer res.Body.Close()
+			dump, err := httputil.DumpResponse(res, true)
+			if err != nil {
+				fmt.Print(err)
+			}
+			fmt.Printf("RESPONSE:\n%s", string(dump))
 			err = json.NewDecoder(res.Body).Decode(v)
 			if err != nil {
 				return err

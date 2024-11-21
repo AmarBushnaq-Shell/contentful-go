@@ -36,10 +36,10 @@ func ExampleEntriesService_Upsert_create() {
 	}
 }
 
-func ExampleEntryService_Upsert_update() {
+func ExampleEntriesService_Upsert_update() {
 	cma := NewCMA("cma-token")
 
-	entry, err := cma.Entries.Get("space-id", "entry-id")
+	entry, err := cma.Entries.Get("space-id", "entry-id", "en-US")
 	if err != nil {
 		log.Fatal(err)
 	}

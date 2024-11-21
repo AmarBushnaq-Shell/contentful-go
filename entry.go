@@ -74,9 +74,10 @@ func (service *EntriesService) List(spaceID string) *Collection {
 }
 
 // Get returns a single entry
-func (service *EntriesService) Get(spaceID, entryID string) (*Entry, error) {
+func (service *EntriesService) Get(spaceID, entryID string, locale string) (*Entry, error) {
 	path := fmt.Sprintf("spaces/%s/environments/%s/entries/%s", spaceID, service.c.Environment, entryID)
 	query := url.Values{}
+	query.Add("locale", locale)
 	method := "GET"
 
 	req, err := service.c.newRequest(method, path, query, nil)
